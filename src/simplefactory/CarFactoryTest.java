@@ -9,7 +9,7 @@ public class CarFactoryTest {
     public void createSedan() {
         CarFactory factory = new CarFactory(CarType.SEDAN, FuelType.GASOLINE);
         Car car = factory.createCar(CarType.SEDAN, 5, 4);
-        assertTrue(car instanceof SedanCar);
+        assertEquals(CarType.SEDAN, car.getType());
         assertEquals(5, car.getSeats());
         assertEquals(4, car.getDoors());
         assertEquals(FuelType.GASOLINE, car.getFuelType());
@@ -19,7 +19,7 @@ public class CarFactoryTest {
     public void createConvertible() {
         CarFactory factory = new CarFactory(CarType.CONVERTIBLE, FuelType.ELECTIRCITY);
         Car car = factory.createCar(CarType.CONVERTIBLE, 2, 2);
-        assertTrue(car instanceof ConvertibleCar);
+        assertEquals(CarType.CONVERTIBLE, car.getType());
         assertEquals(2, car.getSeats());
         assertEquals(2, car.getDoors());
         assertEquals(FuelType.ELECTIRCITY, car.getFuelType());
@@ -29,10 +29,17 @@ public class CarFactoryTest {
     public void createPickup() {
         CarFactory factory = new CarFactory(CarType.PICKUP, FuelType.HYBRID);
         Car car = factory.createCar(CarType.PICKUP, 2, 2);
-        assertTrue(car instanceof PickupCar);
+        assertEquals(CarType.PICKUP, car.getType());
         assertEquals(2, car.getSeats());
         assertEquals(2, car.getDoors());
         assertEquals(FuelType.HYBRID, car.getFuelType());
     }
-}
 
+    @Test
+    public void overloadedCreateCar() {
+        CarFactory factory = new CarFactory(CarType.SEDAN, FuelType.GASOLINE);
+        Car car = factory.createCar(CarType.CONVERTIBLE, FuelType.ELECTIRCITY, 2, 2);
+        assertEquals(CarType.CONVERTIBLE, car.getType());
+        assertEquals(FuelType.ELECTIRCITY, car.getFuelType());
+    }
+}
